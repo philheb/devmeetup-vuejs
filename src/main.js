@@ -31,11 +31,11 @@ new Vue({
   template: '<App/>',
   created () {
     firebase.initializeApp({
-      apiKey: "AIzaSyB6kIaXnpY5AM0yF3RX8hmPE_6Ku3GKggs",
-      authDomain: "devmeetup-8d180.firebaseapp.com",
-      databaseURL: "https://devmeetup-8d180.firebaseio.com",
-      projectId: "devmeetup-8d180",
-      storageBucket: "devmeetup-8d180.appspot.com"
+      apiKey: 'AIzaSyB6kIaXnpY5AM0yF3RX8hmPE_6Ku3GKggs',
+      authDomain: 'devmeetup-8d180.firebaseapp.com',
+      databaseURL: 'https://devmeetup-8d180.firebaseio.com',
+      projectId: 'devmeetup-8d180',
+      storageBucket: 'devmeetup-8d180.appspot.com'
     })
   }
 })

@@ -48,16 +48,27 @@
 export default {
   data () {
     return {
-      sideNav: false,
-      menuItems: [
-        { icon: 'people', title: 'View Meetups', link: '/meetups' },
-        { icon: 'meeting_room', title: 'Organize Meetup', link: '/meetup/new' },
-        { icon: 'person', title: 'Profile', link: '/profile' },
+      sideNav: false
+    }
+  },
+  computed: {
+    menuItems () {
+      let menuItems = [
         { icon: 'tag_faces', title: 'Sign up', link: '/signup' },
         { icon: 'lock_open', title: 'Sign in', link: '/signin' }
       ]
+      if (this.userIsAuthenticated) {
+        menuItems = [
+          { icon: 'people', title: 'View Meetups', link: '/meetups' },
+          { icon: 'meeting_room', title: 'Organize Meetup', link: '/meetup/new' },
+          { icon: 'person', title: 'Profile', link: '/profile' }
+        ]
+      }
+      return menuItems
+    },
+    userIsAuthenticated () {
+      return this.$store.getters.user !== null && this.$store.getters.user !== undefined
     }
-  },
-  name: 'App'
+  }
 }
 </script>
