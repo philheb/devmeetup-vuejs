@@ -3,14 +3,24 @@
       <v-navigation-drawer temporary v-model="sideNav" fixed app>
         <v-list dense>
           <v-list-tile 
-          v-for="item in menuItems" 
-          :key="item.title"
-          :to="item.link">
+            v-for="item in menuItems" 
+            :key="item.title"
+            :to="item.link">
             <v-list-tile-action>
               <v-icon>{{ item.icon }}</v-icon>
             </v-list-tile-action>
             <v-list-tile-content>
               <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile 
+            v-if="userIsAuthenticated"
+            @click="onLogout">
+            <v-list-tile-action>
+              <v-icon>highlight_off</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Logout</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -26,12 +36,19 @@
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-xs-only">
           <v-btn 
-          flat 
-          v-for="item in menuItems" 
-          :key="item.title"
-          :to="item.link">
+            flat 
+            v-for="item in menuItems" 
+            :key="item.title"
+            :to="item.link">
             <v-icon left>{{ item.icon }}</v-icon>
             {{ item.title }}
+          </v-btn>
+          <v-btn 
+            flat
+            v-if="userIsAuthenticated"
+            @click="onLogout">
+            <v-icon left>highlight_off</v-icon>
+            Logout
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>
@@ -68,6 +85,11 @@ export default {
     },
     userIsAuthenticated () {
       return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+    }
+  },
+  methods: {
+    onLogout () {
+      this.$store.dispatch('logout')
     }
   }
 }
