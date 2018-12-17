@@ -8,8 +8,9 @@ import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
 import { store } from './store'
 import AlertCmp from './components/Shared/Alert.vue'
-import EditMeetup from './components/Meetup/Edit/EditMeetupDetailsDialog.vue'
-import EditMeetupDate from './components/Meetup/Edit/EditMeetupDateDialog.vue'
+import EditMeetupDialog from './components/Meetup/Edit/EditMeetupDetailsDialog.vue'
+import EditMeetupDateDialog from './components/Meetup/Edit/EditMeetupDateDialog.vue'
+import RegisterDialog from './components/Meetup/Registration/RegisterDialog.vue'
 
 Vue.use(Vuetify, {
   theme: {
@@ -26,8 +27,9 @@ Vue.use(Vuetify, {
 Vue.config.productionTip = false
 
 Vue.component('app-alert', AlertCmp)
-Vue.component('app-edit-meetup', EditMeetup)
-Vue.component('app-edit-meetup-date', EditMeetupDate)
+Vue.component('app-edit-meetup', EditMeetupDialog)
+Vue.component('app-edit-meetup-date', EditMeetupDateDialog)
+Vue.component('app-register', RegisterDialog)
 
 /* eslint-disable no-new */
 new Vue({
