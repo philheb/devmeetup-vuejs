@@ -29,12 +29,14 @@
                     </v-img>
                     <v-card-text>
                         <div>{{ meetup.date }} at {{ meetup.time }} - {{ meetup.location }}</div>
-                        <div><app-edit-meetup-date :meetup="meetup"></app-edit-meetup-date></div>
+                        <div v-if="userIsCreator"><app-edit-meetup-date :meetup="meetup"></app-edit-meetup-date></div>
                         <div>{{ meetup.description }}</div>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <app-register :meetupId="meetup.id"></app-register>
+                        <app-register 
+                        :meetupId="meetup.id"
+                        v-if="userIsAuthenticated && !userIsCreator"></app-register>
                     </v-card-actions>
                 </v-card>
             </v-flex>

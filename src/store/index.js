@@ -6,35 +6,35 @@ Vue.use(Vuex)
 
 export const store = new Vuex.Store({
   state: {
-    loadedMeetups: [
-      {
-        imageUrl: 'https://source.unsplash.com/TaCk3NspYe0',
-        id: '123214',
-        title: 'Meetup in New York',
-        date: '2018-12-12',
-        time: '18:00',
-        location: 'New York',
-        description: 'This is a description'
-      },
-      {
-        imageUrl: 'https://source.unsplash.com/eYqmWlHsDQo',
-        id: '6345643',
-        title: 'Meetup in Budapest',
-        date: '2018-12-29',
-        time: '18:00',
-        location: 'Budapest',
-        description: 'This is a description'
-      },
-      {
-        imageUrl: 'https://source.unsplash.com/BG9oZ15a4Xk',
-        id: '654347',
-        title: 'Meetup in Montreal',
-        date: '2019-01-23',
-        time: '18:00',
-        location: 'Montreal',
-        description: 'This is a description'
-      }
-    ],
+    // loadedMeetups: [
+    //   {
+    //     imageUrl: 'https://source.unsplash.com/TaCk3NspYe0',
+    //     id: '123214',
+    //     title: 'Meetup in New York',
+    //     date: '2018-12-12',
+    //     time: '18:00',
+    //     location: 'New York',
+    //     description: 'This is a description'
+    //   },
+    //   {
+    //     imageUrl: 'https://source.unsplash.com/eYqmWlHsDQo',
+    //     id: '6345643',
+    //     title: 'Meetup in Budapest',
+    //     date: '2018-12-29',
+    //     time: '18:00',
+    //     location: 'Budapest',
+    //     description: 'This is a description'
+    //   },
+    //   {
+    //     imageUrl: 'https://source.unsplash.com/BG9oZ15a4Xk',
+    //     id: '654347',
+    //     title: 'Meetup in Montreal',
+    //     date: '2019-01-23',
+    //     time: '18:00',
+    //     location: 'Montreal',
+    //     description: 'This is a description'
+    //   }
+    // ],
     user: null,
     loading: false,
     error: null
@@ -268,6 +268,30 @@ export const store = new Vuex.Store({
         registeredMeetups: [],
         fbKeys: {}
       })
+    },
+    fetchUserData ({commit, getters}) {
+      commit('setLoading', true)
+      firebase.database().ref('/users/' + getters.user.id + '/registrations/').once('value')
+        .then(data => {
+          const dataPairs = data.val()
+          let registeredMeetups = []
+          let swappedPairs = {}
+          for (let key in dataPairs) {
+            registeredMeetups.push(dataPairs[key])
+            swappedPairs[dataPairs[key]] = key
+          }
+          const updatedUser = {
+            id: getters.user.id,
+            registeredMeetups: registeredMeetups,
+            fbKeys: swappedPairs
+          }
+          commit('setLoading', false)
+          commit('setUser', updatedUser)
+        })
+        .catch(error => {
+          console.log(error)
+          commit('setLoading', false)
+        })
     },
     logout ({commit}) {
       firebase.auth().signOut()
