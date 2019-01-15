@@ -2,6 +2,10 @@
 
 > A Vue.js project
 
+>You can see a demo at https://devmeetup-8d180.firebaseapp.com/
+>Login test@test.com
+>Password 123456
+
 ## Build Setup
 
 ``` bash
